@@ -7,7 +7,13 @@ const TRADE = 'Mancunia Trades';
 const PHONE = '0161 555 0142';
 const PHONE_TEL = '+441615550142';
 
-const ACCREDITATIONS = ['Gas Safe', 'Checkatrade', 'TrustMark', 'Which? Trusted', 'Trustpilot ★ 4.9'];
+const ACCREDITATIONS: { label: string; href?: string }[] = [
+    { label: 'Gas Safe Registered', href: 'https://www.gassaferegister.co.uk/' },
+    { label: 'Checkatrade Verified', href: 'https://www.checkatrade.com/' },
+    { label: 'TrustMark Endorsed', href: 'https://www.trustmark.org.uk/' },
+    { label: 'NICEIC Approved', href: 'https://www.niceic.com/' },
+    { label: 'Trustpilot ★ 4.9' },
+];
 
 const MEDIA_BASE = 'https://cdn.seojack.website/templates/tpl_trade_manchester';
 
@@ -65,33 +71,33 @@ const WHY_US = [
     },
 ];
 
-// Service-section photos are real stock (Pexels). The `?v=` query forces browsers to
-// drop the previously-cached AI-generated images served at the same R2 keys.
-const SERVICE_IMG_V = 2;
+// Service-section photos — real AI-generated images served from R2 AVIF.
+// The `?v=` query forces browsers to drop any previously-cached images at the same R2 keys.
+const SERVICE_IMG_V = 3;
 const SERVICES = [
     {
         title: 'Installations',
-        blurb: 'Boilers, rewires, full bathrooms — supplied and fitted to manufacturer spec with parts & labour warranty.',
+        blurb: 'Boiler installation Manchester, full house rewires, EV charger installation, and complete bathroom refits — supplied, fitted and certificated with full parts and labour warranty.',
         slug: 'install',
-        alt: 'Professional plumber installing a radiator pipe in a UK home',
+        alt: 'Gas Safe engineer fitting a new combi boiler in a Manchester home',
     },
     {
         title: 'Repairs & Callouts',
-        blurb: 'Diagnosed and fixed on the first visit where parts allow. Fixed-price quotes before we start.',
+        blurb: 'Diagnosed and fixed on the first visit where parts allow. Fixed-price callout across Manchester — no callout fee, ever.',
         slug: 'repair',
-        alt: 'Plumber installing pipe fittings under a kitchen sink',
+        alt: 'Plumber fixing a burst pipe under a kitchen sink in Didsbury, Manchester',
     },
     {
         title: 'Servicing',
-        blurb: 'Annual checks, gas safety certificates, landlord compliance. Reminder service included.',
+        blurb: 'Annual boiler services, CP12 gas safety certificates, landlord compliance Manchester. Reminder service included — we chase the date so you don\'t have to.',
         slug: 'service',
-        alt: 'Gas engineer servicing a heating boiler system',
+        alt: 'Gas engineer carrying out an annual boiler service and CP12 gas safety check',
     },
     {
         title: 'Emergency 24/7',
-        blurb: 'No heat, no water, no power — out-of-hours response across Greater Manchester. No callout fee.',
+        blurb: 'No heat, no water, no power — emergency plumber response from Didsbury to Altrincham, Chorlton to Stockport. Typically within the hour. No callout fee.',
         slug: 'emergency',
-        alt: 'Plumber in blue uniform repairing a leaking pipe with a wrench',
+        alt: 'Emergency plumber repairing a leaking pipe at night, Greater Manchester',
     },
 ] as const;
 
@@ -100,22 +106,22 @@ const BEFORE_AFTER = [
         id: 'boiler',
         label: 'Combi boiler swap',
         meta: 'Didsbury · 1 day',
-        beforeAlt: 'Old yellowed combi boiler before replacement',
-        afterAlt: 'New white combi boiler after installation with clean pipework',
+        beforeAlt: 'Old yellowed combi boiler before replacement by Mancunia Trades, Didsbury',
+        afterAlt: 'New Worcester Bosch combi boiler installed by Gas Safe engineer, Didsbury Manchester',
     },
     {
         id: 'bathroom',
         label: 'Full bathroom refit',
         meta: 'Chorlton · 5 days',
-        beforeAlt: 'Dated 1990s UK bathroom before refit',
-        afterAlt: 'Modern minimalist UK bathroom after refit',
+        beforeAlt: 'Outdated 1990s bathroom before full refit by Manchester bathroom fitters',
+        afterAlt: 'Modern walk-in shower bathroom refit completed by Mancunia Trades, Chorlton',
     },
     {
         id: 'rewire',
         label: 'Consumer unit upgrade',
         meta: 'Sale · 1 day',
-        beforeAlt: 'Old fuse box with messy wiring before upgrade',
-        afterAlt: 'New consumer unit with clean wiring after upgrade',
+        beforeAlt: 'Old fuse box with unsafe wiring before NICEIC consumer unit upgrade, Sale Manchester',
+        afterAlt: 'New RCBO consumer unit fitted by NICEIC electrician, Sale Greater Manchester',
     },
 ] as const;
 
@@ -125,38 +131,44 @@ const RECENT_JOBS = [
         scope: 'Full kitchen plumb-in',
         meta: 'Altrincham · 2 days',
         tag: 'Plumbing',
+        alt: 'Full kitchen plumb-in by Manchester plumber, Altrincham',
     },
     {
         slug: 'job-ev-charger',
         scope: '7kW EV charger install',
         meta: 'Stockport · 1 day',
         tag: 'Electrical',
+        alt: '7kW home EV charger installed by NICEIC electrician in Stockport',
     },
     {
         slug: 'job-attic-insulation',
         scope: 'Loft insulation top-up',
         meta: 'Bury · 1 day',
         tag: 'Insulation',
+        alt: 'Loft insulation top-up completed by TrustMark installer, Bury Manchester',
     },
     {
         slug: 'job-radiator-install',
         scope: 'New living-room rad + balance',
         meta: 'Salford · ½ day',
         tag: 'Heating',
+        alt: 'New living room radiator installed and balanced by heating engineer, Salford',
     },
     {
         slug: 'job-shower-fit',
         scope: 'Walk-in shower fit',
         meta: 'Trafford · 3 days',
         tag: 'Bathroom',
+        alt: 'Walk-in shower fitted by Manchester bathroom fitters in Trafford',
     },
     {
         slug: 'job-fuse-upgrade',
         scope: 'Fuse-board RCBO upgrade',
         meta: 'Tameside · 1 day',
         tag: 'Electrical',
+        alt: 'RCBO fuse board upgrade by NICEIC electrician, Tameside Greater Manchester',
     },
-] as const;
+];
 
 const PROCESS = [
     {
@@ -184,6 +196,7 @@ const ENGINEERS = [
         role: 'Lead Gas Engineer',
         years: 18,
         badges: ['Gas Safe', 'OFTEC'],
+        alt: 'Dan Whitlock, Gas Safe lead heating engineer at Mancunia Trades Manchester',
     },
     {
         slug: 'engineer-2',
@@ -191,6 +204,7 @@ const ENGINEERS = [
         role: 'Senior Plumber',
         years: 11,
         badges: ['WaterSafe', 'CIPHE'],
+        alt: 'Priya Mehta, WaterSafe senior plumber serving Greater Manchester',
     },
     {
         slug: 'engineer-3',
@@ -198,6 +212,7 @@ const ENGINEERS = [
         role: 'Master Electrician',
         years: 22,
         badges: ['NICEIC', '18th Edition'],
+        alt: 'Marcus Adeyemi, NICEIC master electrician at Mancunia Trades Manchester',
     },
     {
         slug: 'engineer-4',
@@ -205,8 +220,9 @@ const ENGINEERS = [
         role: 'Apprentice Engineer',
         years: 3,
         badges: ['NVQ Lvl 3', 'PAT Tested'],
+        alt: 'Tom Pickering, qualified apprentice engineer with Mancunia Trades',
     },
-] as const;
+];
 
 const FAQS = [
     {
@@ -281,6 +297,43 @@ const REVIEWS = [
         initial: 'P',
     },
 ] as const;
+
+// Lazy image that fades up once decoded. Handles the cached-at-mount case so a
+// already-loaded photo doesn't stay stuck at opacity 0. Reduced-motion users
+// get the image at full opacity immediately (the .t-media-fade rule no-ops).
+function FadeImg({
+    src,
+    alt,
+    className = '',
+    sizes,
+}: {
+    src: string;
+    alt: string;
+    className?: string;
+    sizes?: string;
+}) {
+    const ref = useRef<HTMLImageElement | null>(null);
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        const el = ref.current;
+        if (el && el.complete && el.naturalWidth > 0) setLoaded(true);
+    }, []);
+
+    return (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+            ref={ref}
+            src={src}
+            alt={alt}
+            className={`t-media-fade ${className} ${loaded ? 'is-loaded' : ''}`}
+            loading="lazy"
+            decoding="async"
+            sizes={sizes}
+            onLoad={() => setLoaded(true)}
+        />
+    );
+}
 
 function CountUp({
     end,
@@ -578,13 +631,36 @@ function MapIllustration() {
     );
 }
 
+const SJ_LOGO_DARK = 'https://cdn.seojack.website/brand/seojack-digital-marketing-logo.avif?v=3';
+const SJ_LOGO_LIGHT = 'https://cdn.seojack.website/brand/seojack-logo.avif?v=3';
+const SJ_TEMPLATES_URL = 'https://seojack.net/templates';
+const SJ_DEEP_LINK = 'https://seojack.net/templates/tpl_trade_manchester';
+
 export default function DemoBody() {
     const year = new Date().getFullYear();
+    const [formState, setFormState] = useState<'idle' | 'sent'>('idle');
 
-    // Scroll-reveal: observe every .t-reveal element and add .is-in when it enters viewport.
+    // Scroll-reveal: observe every .t-reveal / .t-stagger element and add .is-in
+    // when it enters the viewport. .t-stagger groups get a per-child delay so the
+    // cards rise in sequence. Reduced-motion users settle straight to final state.
     useEffect(() => {
         const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const elements = document.querySelectorAll<HTMLElement>('.trade-demo .t-reveal');
+        const elements = document.querySelectorAll<HTMLElement>(
+            '.trade-demo .t-reveal, .trade-demo .t-stagger'
+        );
+
+        // Assign a capped, incremental delay to each child of a stagger group.
+        document
+            .querySelectorAll<HTMLElement>('.trade-demo .t-stagger')
+            .forEach((group) => {
+                Array.from(group.children).forEach((child, i) => {
+                    (child as HTMLElement).style.setProperty(
+                        '--t-stagger-delay',
+                        `${Math.min(i, 7) * 70}ms`
+                    );
+                });
+            });
+
         if (reduced) {
             elements.forEach((el) => el.classList.add('is-in'));
             return;
@@ -651,8 +727,24 @@ export default function DemoBody() {
   will-change: opacity, transform;
 }
 .trade-demo .t-reveal.is-in { opacity: 1; transform: none; }
+
+/* Staggered reveal — direct grid/flow children rise in sequence once the
+   group enters. Index-driven delay keeps cards reading as one coherent
+   sweep rather than a single hard block. Reused by every card grid so the
+   relay's new media (services/jobs/engineers/before-after) reveals
+   identically to the original sections — no "two eras" seam. */
+.trade-demo .t-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .55s cubic-bezier(.2,.7,.2,1), transform .55s cubic-bezier(.2,.7,.2,1);
+  transition-delay: var(--t-stagger-delay, 0ms);
+  will-change: opacity, transform;
+}
+.trade-demo .t-stagger.is-in > * { opacity: 1; transform: none; }
+
 @media (prefers-reduced-motion: reduce) {
-  .trade-demo .t-reveal, .trade-demo .t-reveal.is-in {
+  .trade-demo .t-reveal, .trade-demo .t-reveal.is-in,
+  .trade-demo .t-stagger > *, .trade-demo .t-stagger.is-in > * {
     opacity: 1; transform: none; transition: none;
   }
 }
@@ -887,11 +979,22 @@ export default function DemoBody() {
   overflow: hidden;
   border-bottom: 1px solid var(--t-border);
 }
+/* Graceful media posture — photos sit at 0 opacity over the warm placeholder
+   and ease in once decoded, so a lazy image arriving after its card has
+   already revealed softly fades up instead of snapping in. Only the opacity
+   VALUE is set here; the per-image rules below own the transition (so the
+   hover zoom on .t-svc__img / .t-job__img keeps its transform transition). */
+.trade-demo .t-media-fade { opacity: 0; }
+.trade-demo .t-media-fade.is-loaded { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .trade-demo .t-media-fade,
+  .trade-demo .t-media-fade.is-loaded { opacity: 1; }
+}
 .t-svc__img {
   width: 100%; height: 100%;
   object-fit: cover; object-position: center;
   display: block;
-  transition: transform .4s ease;
+  transition: transform .4s ease, opacity .5s ease;
 }
 .t-svc:hover .t-svc__img { transform: scale(1.04); }
 .t-svc__body { padding: 20px 20px 22px; }
@@ -986,7 +1089,7 @@ export default function DemoBody() {
 .t-job__img {
   position: absolute; inset: 0;
   width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform .5s cubic-bezier(.2,.7,.2,1);
+  transition: transform .5s cubic-bezier(.2,.7,.2,1), opacity .5s ease;
 }
 .t-job:hover .t-job__img { transform: scale(1.06); }
 .t-job__shade {
@@ -1099,7 +1202,7 @@ export default function DemoBody() {
   transform: translateY(-3px); box-shadow: 0 18px 36px rgba(26,26,26,.08); border-color: rgba(209,75,42,.4);
 }
 .t-eng__media { aspect-ratio: 4/5; background: var(--t-warm); overflow: hidden; }
-.t-eng__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.t-eng__img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity .5s ease; }
 .t-eng__body { padding: 18px 18px 20px; }
 .t-eng__name { font-size: 17px; font-weight: 800; letter-spacing: -.3px; margin: 0; }
 .t-eng__role { font-size: 13px; color: var(--t-accent); font-weight: 700; margin-top: 2px; }
@@ -1278,6 +1381,151 @@ export default function DemoBody() {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
+
+/* Nav — SEOJack attribution lockup */
+.t-nav__sj {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 10px; border-radius: 8px;
+  border: 1px solid var(--t-border);
+  color: var(--t-ink-mute);
+  transition: border-color .2s cubic-bezier(.2,.7,.2,1), background .2s cubic-bezier(.2,.7,.2,1);
+  flex-shrink: 0;
+}
+.t-nav__sj:hover { border-color: rgba(209,75,42,.45); background: rgba(209,75,42,.04); }
+.t-nav__sj-label {
+  font-size: 11px; font-weight: 600; letter-spacing: .4px;
+  white-space: nowrap; text-transform: uppercase;
+  transition: color .2s cubic-bezier(.2,.7,.2,1);
+}
+.t-nav__sj:hover .t-nav__sj-label { color: var(--t-ink-soft); }
+/* SEOJack logo recedes slightly until hovered, then settles to full presence
+   with a faint lift — keeps the attribution polite but makes it feel clickable. */
+.t-nav__sj-logo {
+  display: block; height: 18px; width: auto;
+  opacity: .78;
+  transform: translateZ(0);
+  transition: opacity .2s cubic-bezier(.2,.7,.2,1), transform .2s cubic-bezier(.2,.7,.2,1);
+}
+.t-nav__sj:hover .t-nav__sj-logo { opacity: 1; transform: scale(1.04); }
+.t-nav__sj:active .t-nav__sj-logo { transform: scale(.99); }
+@media (prefers-reduced-motion: reduce) {
+  .t-nav__sj-logo, .t-nav__sj:hover .t-nav__sj-logo, .t-nav__sj:active .t-nav__sj-logo {
+    transition: none; transform: none; opacity: 1;
+  }
+}
+@media (max-width: 760px) { .t-nav__sj-label { display: none; } }
+@media (max-width: 480px) { .t-nav__sj { display: none; } }
+
+/* SEOJack conversion band */
+.t-sj-band {
+  background: var(--t-ink);
+  border-top: 3px solid var(--t-accent);
+  padding: 64px 24px 72px;
+  text-align: center;
+  color: #fff;
+}
+.t-sj-band__logo {
+  display: inline-flex; align-items: center; justify-content: center; margin-bottom: 28px;
+}
+.t-sj-band__logo a {
+  display: block; opacity: .82;
+  transition: opacity .2s cubic-bezier(.2,.7,.2,1), transform .2s cubic-bezier(.2,.7,.2,1);
+}
+.t-sj-band__logo a:hover { opacity: 1; transform: translateY(-1px); }
+.t-sj-band__logo a:active { transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .t-sj-band__logo a, .t-sj-band__logo a:hover, .t-sj-band__logo a:active {
+    transition: none; transform: none; opacity: 1;
+  }
+}
+.t-sj-band__h {
+  font-size: clamp(28px, 3.8vw, 42px); font-weight: 800;
+  letter-spacing: -1px; line-height: 1.08; margin: 0;
+}
+.t-sj-band__h .t-sj-band__accent { color: var(--t-accent); }
+.t-sj-band__bar {
+  width: 72px; height: 4px; background: var(--t-accent); border-radius: 2px;
+  margin: 18px auto;
+}
+.t-sj-band__sub {
+  font-size: 16px; color: rgba(255,255,255,.72); line-height: 1.55;
+  max-width: 500px; margin: 0 auto 32px;
+}
+.t-sj-band__cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 28px; border-radius: 10px;
+  background: var(--t-accent); color: #fff;
+  font-weight: 800; font-size: 16px; letter-spacing: .2px;
+  box-shadow: 0 8px 24px rgba(209,75,42,.35);
+  transition: background .2s cubic-bezier(.2,.7,.2,1),
+              transform .2s cubic-bezier(.2,.7,.2,1),
+              box-shadow .2s cubic-bezier(.2,.7,.2,1);
+  text-decoration: none;
+}
+.t-sj-band__cta:hover {
+  background: var(--t-accent-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(209,75,42,.42);
+}
+.t-sj-band__cta:active { transform: translateY(0); box-shadow: 0 6px 16px rgba(209,75,42,.32); }
+.t-sj-band__cta:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+/* Arrow nudges right on hover — echoes the .t-svc__more / .t-finance__cta affordance. */
+.t-sj-band__cta-arrow {
+  font-size: 20px; line-height: 1;
+  transition: transform .2s cubic-bezier(.2,.7,.2,1);
+}
+.t-sj-band__cta:hover .t-sj-band__cta-arrow { transform: translateX(3px); }
+@media (prefers-reduced-motion: reduce) {
+  .t-sj-band__cta, .t-sj-band__cta:hover, .t-sj-band__cta:active,
+  .t-sj-band__cta-arrow, .t-sj-band__cta:hover .t-sj-band__cta-arrow {
+    transition: none; transform: none;
+  }
+}
+.t-sj-band__note {
+  margin-top: 20px; font-size: 13px; color: rgba(255,255,255,.42);
+  letter-spacing: .2px;
+}
+
+/* Quote form success state — eases in (with a brief icon pop) so the swap
+   reads as a deliberate confirmation rather than a hard content replace. */
+.t-form__success {
+  text-align: center; padding: 20px 0 8px;
+  animation: t-success-in .4s cubic-bezier(.2,.7,.2,1) both;
+}
+@keyframes t-success-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.t-form__success-icon {
+  display: inline-grid; place-items: center;
+  width: 52px; height: 52px; border-radius: 999px;
+  background: rgba(209,75,42,.12); color: var(--t-accent);
+  margin: 0 auto 14px;
+  animation: t-success-pop .5s cubic-bezier(.34,1.4,.5,1) .08s both;
+}
+@keyframes t-success-pop {
+  0% { transform: scale(.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .t-form__success, .t-form__success-icon { animation: none; }
+}
+.t-form__success-h {
+  font-size: 19px; font-weight: 800; letter-spacing: -.3px; color: var(--t-ink);
+}
+.t-form__success-p {
+  font-size: 14px; color: var(--t-ink-soft); margin: 8px 0 0; line-height: 1.55;
+}
+.t-form__success-sj {
+  display: block; margin-top: 20px; padding-top: 18px;
+  border-top: 1px solid var(--t-border);
+  font-size: 13px; color: var(--t-ink-mute); line-height: 1.5;
+}
+.t-form__success-sj a {
+  color: var(--t-accent); font-weight: 700; text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.t-form__success-sj a:hover { color: var(--t-accent-dark); }
             `}</style>
 
             {/* NAV */}
@@ -1293,9 +1541,26 @@ export default function DemoBody() {
                             <a href="#work">Our work</a>
                             <a href="#process">How it works</a>
                             <a href="#engineers">The team</a>
+                            <a href="#areas">Areas</a>
                             <a href="#faq">FAQ</a>
                             <a className="t-nav__phone t-nav__links--always" href={`tel:${PHONE_TEL}`}>
                                 <span aria-hidden>☎</span> {PHONE}
+                            </a>
+                            <a
+                                className="t-nav__sj"
+                                href={SJ_TEMPLATES_URL}
+                                target="_blank"
+                                rel="noopener"
+                                aria-label="Demo by SEOJack — browse templates"
+                            >
+                                <span className="t-nav__sj-label">Demo by</span>
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                    src={SJ_LOGO_LIGHT}
+                                    alt="SEOJack"
+                                    height={18}
+                                    className="t-nav__sj-logo"
+                                />
                             </a>
                         </nav>
                     </div>
@@ -1307,13 +1572,13 @@ export default function DemoBody() {
                 <div className="t-hero">
                     <div>
                         <h1 className="t-h1">
-                            Premium trades<br />
-                            done properly,<br />
-                            <span className="t-h1__accent">first time.</span>
+                            Manchester&rsquo;s emergency<br />
+                            plumber &amp; trades —<br />
+                            <span className="t-h1__accent">done properly, first time.</span>
                         </h1>
                         <p className="t-hero__sub">
-                            Family-run, fully insured, 5-star rated. Free no-obligation quotes across
-                            Greater Manchester. Same-day callouts where possible.
+                            Gas Safe, NICEIC &amp; TrustMark accredited. No callout fee, fixed-price quotes,
+                            24/7 emergency cover across Greater Manchester. Free quotes, same-day where possible.
                         </p>
                         <div className="t-cta-row">
                             <a className="t-btn t-btn--phone" href={`tel:${PHONE_TEL}`}>
@@ -1332,23 +1597,44 @@ export default function DemoBody() {
                     <aside id="quote" className="t-quote" aria-label="Free quote form">
                         <h2>Free quote in 60 seconds</h2>
                         <div className="t-quote__bar" />
-                        <form
-                            className="t-form"
-                            method="post"
-                            action="#"
-                            onSubmit={(e) => e.preventDefault()}
-                        >
-                            <label className="sr-only" htmlFor="t-name">Your name</label>
-                            <input className="t-field" id="t-name" name="name" placeholder="Your name" autoComplete="name" />
-                            <label className="sr-only" htmlFor="t-phone">Phone number</label>
-                            <input className="t-field" id="t-phone" name="phone" placeholder="Phone number" inputMode="tel" autoComplete="tel" />
-                            <label className="sr-only" htmlFor="t-postcode">Postcode</label>
-                            <input className="t-field" id="t-postcode" name="postcode" placeholder="Postcode" autoComplete="postal-code" />
-                            <label className="sr-only" htmlFor="t-detail">What do you need?</label>
-                            <textarea className="t-field" id="t-detail" name="detail" placeholder="What do you need?" rows={3} />
-                            <button className="t-form__submit" type="submit">Request my free quote</button>
-                            <p className="t-form__fine">No spam · GDPR · We reply within 1 working hour</p>
-                        </form>
+                        {formState === 'sent' ? (
+                            <div className="t-form__success">
+                                <div className="t-form__success-icon" aria-hidden>
+                                    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" strokeWidth="2.2">
+                                        <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </div>
+                                <p className="t-form__success-h">Quote request received</p>
+                                <p className="t-form__success-p">
+                                    We&rsquo;ll be back in touch within the hour (working hours).<br />
+                                    Emergencies? Call <a href={`tel:${PHONE_TEL}`}>{PHONE}</a>.
+                                </p>
+                                <span className="t-form__success-sj">
+                                    Love how this form works?{' '}
+                                    <a href={SJ_DEEP_LINK} target="_blank" rel="noopener">
+                                        Get this site at seojack.net
+                                    </a>
+                                </span>
+                            </div>
+                        ) : (
+                            <form
+                                className="t-form"
+                                method="post"
+                                action="#"
+                                onSubmit={(e) => { e.preventDefault(); setFormState('sent'); }}
+                            >
+                                <label className="sr-only" htmlFor="t-name">Your name</label>
+                                <input className="t-field" id="t-name" name="name" placeholder="Your name" autoComplete="name" />
+                                <label className="sr-only" htmlFor="t-phone">Phone number</label>
+                                <input className="t-field" id="t-phone" name="phone" placeholder="Phone number" inputMode="tel" autoComplete="tel" />
+                                <label className="sr-only" htmlFor="t-postcode">Postcode</label>
+                                <input className="t-field" id="t-postcode" name="postcode" placeholder="Postcode" autoComplete="postal-code" />
+                                <label className="sr-only" htmlFor="t-detail">What do you need?</label>
+                                <textarea className="t-field" id="t-detail" name="detail" placeholder="What do you need?" rows={3} />
+                                <button className="t-form__submit" type="submit">Request my free quote</button>
+                                <p className="t-form__fine">No spam · GDPR · We reply within 1 working hour</p>
+                            </form>
+                        )}
                     </aside>
                 </div>
             </section>
@@ -1378,7 +1664,13 @@ export default function DemoBody() {
                 <div className="t-shell t-pad">
                     <div className="t-trust__inner">
                         {ACCREDITATIONS.map((a) => (
-                            <div key={a}>{a}</div>
+                            <div key={a.label}>
+                                {a.href ? (
+                                    <a href={a.href} target="_blank" rel="noopener noreferrer">{a.label}</a>
+                                ) : (
+                                    a.label
+                                )}
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -1393,7 +1685,7 @@ export default function DemoBody() {
                         Four promises that show up on every job, every time.
                     </p>
                 </div>
-                <div className="t-why">
+                <div className="t-why t-stagger">
                     {WHY_US.map((w) => (
                         <article key={w.title} className="t-why__card">
                             <div className="t-why__icon">{w.icon}</div>
@@ -1407,23 +1699,21 @@ export default function DemoBody() {
             {/* SERVICES */}
             <section id="services" className="t-shell t-pad t-section t-reveal">
                 <div className="t-section__head">
-                    <h2 className="t-h2">Our services</h2>
+                    <h2 className="t-h2">Plumbing, Heating, Electrical &amp; Bathroom Services in Manchester</h2>
                     <div className="t-h2__bar" />
                     <p className="t-section__sub">
-                        Choose what you need — we&rsquo;ll book it the same day where possible.
+                        From boiler installation to bathroom refits — we&rsquo;ll book it the same day where possible.
                     </p>
                 </div>
-                <div className="t-services">
+                <div className="t-services t-stagger">
                     {SERVICES.map((s) => (
                         <article key={s.title} className="t-svc">
                             <div className="t-svc__media">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
+                                <FadeImg
                                     src={`${MEDIA_BASE}/${s.slug}.avif?v=${SERVICE_IMG_V}`}
                                     alt={s.alt}
                                     className="t-svc__img"
-                                    loading="lazy"
-                                    decoding="async"
+                                    sizes="(max-width: 560px) 100vw, (max-width: 1100px) 50vw, 25vw"
                                 />
                             </div>
                             <div className="t-svc__body">
@@ -1439,13 +1729,13 @@ export default function DemoBody() {
             {/* BEFORE / AFTER */}
             <section id="work" className="t-shell t-pad t-section t-reveal">
                 <div className="t-section__head">
-                    <h2 className="t-h2">See the difference</h2>
+                    <h2 className="t-h2">Recent Boiler, Bathroom &amp; Rewire Work in Manchester</h2>
                     <div className="t-h2__bar" />
                     <p className="t-section__sub">
-                        Drag the slider on any photo to reveal the work. Real jobs, real homes, real before-and-after.
+                        Drag the slider to reveal the work. Real jobs, real homes — Didsbury, Chorlton &amp; Sale.
                     </p>
                 </div>
-                <div className="t-ba-grid">
+                <div className="t-ba-grid t-stagger">
                     {BEFORE_AFTER.map((b) => (
                         <BeforeAfterSlider
                             key={b.id}
@@ -1468,16 +1758,14 @@ export default function DemoBody() {
                         A snapshot of the work we&rsquo;ve booked, quoted and completed in the last 30 days.
                     </p>
                 </div>
-                <div className="t-jobs">
+                <div className="t-jobs t-stagger">
                     {RECENT_JOBS.map((j) => (
                         <a key={j.slug} href="#quote" className="t-job" aria-label={`${j.scope} — ${j.meta}`}>
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
+                            <FadeImg
                                 src={`${MEDIA_BASE}/${j.slug}.avif`}
-                                alt={j.scope}
+                                alt={j.alt}
                                 className="t-job__img"
-                                loading="lazy"
-                                decoding="async"
+                                sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 33vw"
                             />
                             <div className="t-job__shade" />
                             <span className="t-job__tag">{j.tag}</span>
@@ -1501,7 +1789,7 @@ export default function DemoBody() {
                             Four steps from your first call to a finished, certificated job. No nasty surprises.
                         </p>
                     </div>
-                    <div className="t-process">
+                    <div className="t-process t-stagger">
                         {PROCESS.map((p, i) => (
                             <div key={p.title} className="t-step">
                                 <div className="t-step__num">{i + 1}</div>
@@ -1526,7 +1814,7 @@ export default function DemoBody() {
                             <button type="button" aria-label="Next review">→</button>
                         </div>
                     </div>
-                    <div className="t-reviews__grid">
+                    <div className="t-reviews__grid t-stagger">
                         {REVIEWS.map((r) => (
                             <article key={r.name} className="t-review">
                                 <span className="t-stars" aria-label="5 out of 5 stars">★★★★★</span>
@@ -1553,17 +1841,15 @@ export default function DemoBody() {
                         Same faces every visit. No subcontractors. No mystery vans.
                     </p>
                 </div>
-                <div className="t-eng">
+                <div className="t-eng t-stagger">
                     {ENGINEERS.map((e) => (
                         <article key={e.slug} className="t-eng__card">
                             <div className="t-eng__media">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
+                                <FadeImg
                                     src={`${MEDIA_BASE}/${e.slug}.avif`}
-                                    alt={`Portrait of ${e.name}, ${e.role}`}
+                                    alt={e.alt}
                                     className="t-eng__img"
-                                    loading="lazy"
-                                    decoding="async"
+                                    sizes="(max-width: 520px) 100vw, (max-width: 1000px) 50vw, 25vw"
                                 />
                             </div>
                             <div className="t-eng__body">
@@ -1585,11 +1871,10 @@ export default function DemoBody() {
             <section id="areas" className="t-shell t-pad t-section t-reveal">
                 <div className="t-areas">
                     <div>
-                        <h2 className="t-h2">Where we cover</h2>
+                        <h2 className="t-h2">Emergency Trades Covering Didsbury, Chorlton, Altrincham &amp; Greater Manchester</h2>
                         <div className="t-h2__bar" />
                         <p className="t-section__sub" style={{ maxWidth: 460 }}>
-                            All of Greater Manchester and surrounding postcodes. Not sure?
-                            Enter yours and we&rsquo;ll confirm in seconds.
+                            We cover all of Greater Manchester — from Altrincham and Sale in the south to Bury and Bolton in the north. Not sure if we reach you? Enter your postcode below.
                         </p>
                         <form className="t-postcode" action="#" onSubmit={(e) => e.preventDefault()}>
                             <label className="sr-only" htmlFor="t-areas-postcode">Postcode</label>
@@ -1615,9 +1900,9 @@ export default function DemoBody() {
                         <div className="t-finance__copy">
                             <div className="t-finance__badge">0%</div>
                             <div>
-                                <h3 className="t-finance__h">Finance available on bigger jobs</h3>
+                                <h3 className="t-finance__h">0% finance on boiler installation, bathrooms &amp; rewires</h3>
                                 <p className="t-finance__sub">
-                                    Spread the cost of a boiler, bathroom or rewire over 12–36 months.
+                                    Spread the cost over 12–36 months on jobs from £1,500 Manchester-wide.
                                     0% APR options. Subject to status · FCA regulated.
                                 </p>
                             </div>
@@ -1632,7 +1917,7 @@ export default function DemoBody() {
             {/* FAQ */}
             <section id="faq" className="t-shell t-pad t-section t-reveal">
                 <div className="t-section__head">
-                    <h2 className="t-h2">Questions, answered</h2>
+                    <h2 className="t-h2">Common Questions About Our Manchester Trade Services</h2>
                     <div className="t-h2__bar" />
                     <p className="t-section__sub">
                         Everything we get asked the most — straight answers, no fluff.
@@ -1672,6 +1957,43 @@ export default function DemoBody() {
                     </div>
                 </div>
             </footer>
+
+            {/* SEOJACK CONVERSION BAND — placed above the credit bar.
+                .t-stagger rises the logo → headline → bar → subcopy → CTA → note
+                in sequence so the band reads as one composed entrance, matching
+                the card grids above. Reduced-motion settles it instantly. */}
+            <section className="t-sj-band t-stagger" aria-label="Make this template yours">
+                <div className="t-sj-band__logo">
+                    <a href={SJ_TEMPLATES_URL} target="_blank" rel="noopener" aria-label="SEOJack — browse templates">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            src={SJ_LOGO_DARK}
+                            alt="SEOJack"
+                            height={26}
+                            style={{ height: 26, width: 'auto', display: 'block' }}
+                        />
+                    </a>
+                </div>
+                <h2 className="t-sj-band__h">
+                    Want a site like this for your{' '}
+                    <span className="t-sj-band__accent">trade business?</span>
+                </h2>
+                <div className="t-sj-band__bar" />
+                <p className="t-sj-band__sub">
+                    This exact design, built for your business, by SEOJack — with your branding,
+                    your phone number, and your jobs portfolio.
+                </p>
+                <a
+                    className="t-sj-band__cta"
+                    href={SJ_DEEP_LINK}
+                    target="_blank"
+                    rel="noopener"
+                >
+                    Make this template yours
+                    <span className="t-sj-band__cta-arrow" aria-hidden>→</span>
+                </a>
+                <p className="t-sj-band__note">seojack.net/templates · No commitment required</p>
+            </section>
 
             <StickyMobileCTA />
             <SeojackCredit templateId="tpl_trade_manchester" />
