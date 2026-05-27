@@ -1,0 +1,24 @@
+{
+  "name": "template-trade-manchester",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Conversion-grade landing page for a family-run UK trade firm: sticky callback form, before/after gallery, accreditations, recent jobs, and 0% finance.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^16.2.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "lucide-react": ">=0.400.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
+  }
+}
